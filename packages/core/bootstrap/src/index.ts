@@ -218,7 +218,12 @@ export const executeSync: ExecuteSync = async (
     const feedID = metrics.util.getFeedId(data)
     return callback(
       error.statusCode || 500,
-      Requester.errored(data.id, error, error.statusCode, feedID),
+      Requester.errored(
+        data.id,
+        error,
+        error.providerResponseStatusCode || error.statusCode,
+        feedID,
+      ),
     )
   }
 }
