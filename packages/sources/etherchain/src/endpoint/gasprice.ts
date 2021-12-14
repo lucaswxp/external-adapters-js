@@ -6,7 +6,13 @@ export const supportedEndpoints = ['gasprice']
 const customError = (data: any) => data.Response === 'Error'
 
 export const inputParameters: InputParameters = {
-  speed: false,
+  speed: {
+    required: false,
+    type: 'string',
+    description: 'The desired speed',
+    options: ['safeLow', 'average', 'fast', 'fastest'],
+    default: 'average',
+  },
 }
 
 interface ResponseSchema {
