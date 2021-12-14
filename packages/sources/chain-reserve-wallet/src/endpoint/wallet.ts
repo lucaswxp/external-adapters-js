@@ -48,13 +48,12 @@ export const execute: ExecuteWithConfig<Config> = async (request, _, config) => 
   const walletProviderContract = new ethers.Contract(contractAddress, abi, provider)
   const addresses = await walletProviderContract.walletAddresses(chainID)
 
-  const result: AdapterResponse = {
-    jobRunID,
+  const result = {
     result: addresses,
     data: {
       result: addresses,
     },
-    statusCode: 200,
+    status: 200,
   }
 
   return Requester.success(jobRunID, result, config.verbose)
