@@ -7,9 +7,30 @@ export const supportedEndpoints = ['convert', 'price']
 const customError = (data: any) => data.Response === 'Error'
 
 export const inputParameters: InputParameters = {
-  base: ['base', 'from', 'coin'],
-  quote: ['quote', 'to', 'market'],
-  amount: false,
+  base: {
+    required: true,
+    aliases: ['from', 'coin'],
+    description: 'The symbol of the currency to query',
+    type: 'string',
+  },
+  quote: {
+    required: true,
+    aliases: ['to', 'market'],
+    description: 'The symbol of the currency to convert to',
+    type: 'string',
+  },
+  amount: {
+    required: false,
+    description: 'The amount of `base` currency',
+    type: 'number',
+    default: 1,
+  },
+  overrides: {
+    required: false,
+    description:
+      'If base provided is found in overrides, that will be used (default presets defined [here](../../core/bootstrap/src/lib/external-adapter/overrides/presetSymbols.json))',
+    type: 'object',
+  },
 }
 
 export const execute: ExecuteWithConfig<Config> = async (request, _, config) => {
